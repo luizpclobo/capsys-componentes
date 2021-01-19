@@ -1,0 +1,30 @@
+.entrada-base {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+}
+
+.entrada-campo {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    margin: 0.5rem 15rem 0.5rem 15rem;
+}
+
+.entrada-campo-sem-descricao {
+    height: 2rem;
+}
+
+.entrada-campo-com-descricao {
+    height: 3rem;
+}
+
+.entrada-campo-descricao {
+    padding-right: 2px;
+}
+
+.entrada-input {
+    border: 1px solid gray;
+    border-radius: 0.2rem;
+    height: inherit;
+}

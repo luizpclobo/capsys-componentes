@@ -1,0 +1,17 @@
+.botao-base {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+}
+
+.botao-campo {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    margin: 0.5rem 15rem 0.5rem 15rem;
+    height: 2rem;
+}
+
+.botao-input {
+    height: inherit;
+}

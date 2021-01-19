@@ -1,0 +1,13 @@
+.cabecalho {
+    display: flex;
+    flex: 1;
+    background-color: black;
+    padding: 0 2rem;
+}
+
+.cabecalho-logo {
+    display: flex;
+    flex: 1;
+    background-color: white;
+    margin: 1rem 0;
+}

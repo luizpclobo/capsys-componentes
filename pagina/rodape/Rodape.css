@@ -1,0 +1,10 @@
+.app-rodape {
+    background: #dcdcdc;
+    padding: .5rem 2rem;
+    text-align: right;
+}
+
+.app-rodape__message {
+    color: #595959;
+    font-family: sans-serif;
+}
