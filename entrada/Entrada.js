@@ -6,6 +6,8 @@ export default class Entrada extends React.Component {
 
     static defaultProps = {
         focoInicial: false,
+        tipo: 'text',
+        habilitado: true,
     }
 
     state = {
@@ -40,10 +42,6 @@ export default class Entrada extends React.Component {
         evento.target.value = evento.target.value.toUpperCase()
     }
 
-    onFocus = () => {
-        this.onChangeValor(true)
-    }
-
     render() {
         this.onChangeValor()
 
@@ -55,15 +53,15 @@ export default class Entrada extends React.Component {
                         <label className='entrada-campo-descricao'>{ this.props.descricao }</label>
                     }
                     <input
-                        className='entrada-input'
-                        type='text'
+                        className='entrada'
+                        type={ this.props.tipo }
                         autofocus={ this.props.focoInicial }
                         placeholder={ !this.state.exibirLabel && this.props.descricao }
                         value={ this.props.valor }
+                        disabled={ !this.props.habilitado }
                         onChange={ this.onChange }
                         onBlur={ this.onBlur }
                         onInput={ this.onInput }
-                        onFocus={ this.onFocus }
                     />
                 </div>
             </div>   

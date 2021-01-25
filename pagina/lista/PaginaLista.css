@@ -1,0 +1,89 @@
+/* @media only screen and (max-width: 600px) {
+    body {
+        font-size: 10px;
+    }
+} */
+
+.acao {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.acao-item {
+    margin: 0 5px 0 5px;
+}
+
+.acao-item-adicionar {
+    align-self: flex-end;
+    font-size: 40px;
+    color: rgb(0, 128, 0);
+}
+
+.acao-item-adicionar:hover {
+    color: rgb(0, 128, 0, 0.7);
+}
+
+.acao-item-atualizar {
+    align-self: flex-end;
+    font-size: 40px;
+    color: rgb(25, 25, 170);
+    cursor: pointer;
+}
+
+.acao-item-atualizar:hover {
+    color: rgb(25, 25, 170, 0.7);
+}
+
+.grid {
+    height: 30rem;
+    width: '100%';
+}
+
+.grid-cabecalho {
+    background-color: black;
+    color: white;
+    font-weight: bold;
+}
+
+.grid-item {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+/* .grid-loader {  
+    grid-column: 1 / 7;
+    justify-self: center;
+    margin: 2rem 0;
+} */
+
+.grid-item-acao {
+    cursor: pointer;
+    font-size: 25px;
+}
+
+.grid-item-acao-visualizar {
+    color: rgb(0, 128, 0);
+}
+
+.grid-item-acao-visualizar:hover { 
+    color: rgba(0, 128, 0, 0.7);
+}
+
+.grid-item-acao-editar {
+    color: rgb(0, 0, 0);
+}
+
+.grid-item-acao-editar:hover { 
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.grid-item-acao-excluir {
+    color: rgb(200, 0, 0);
+}
+
+.grid-item-acao-excluir:hover { 
+    color: rgba(200, 0, 0, 0.7);
+}

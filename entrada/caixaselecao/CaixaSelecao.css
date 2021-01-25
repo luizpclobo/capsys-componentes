@@ -1,0 +1,63 @@
+.caixaselecao-base {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    padding: 0.5rem;
+}
+
+.caixaselecao-campo {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.caixaselecao-campo-sem-descricao {
+    height: 2.5rem;
+}
+
+.caixaselecao-campo-com-descricao {
+    height: 3.5rem;
+}
+
+.caixaselecao-campo-descricao {
+    font-weight: bold;
+}
+
+.caixaselecao {
+    border: 1px solid gray;
+    border-radius: 0.2rem;
+    height: inherit;
+    font-size: inherit;
+    font-family: inherit;
+}
+
+.caixaselecao-item {
+    color: black;
+    margin: 10px 0;
+}
+
+.caixaselecao-menu-base {
+    position: relative;
+    display: inline-block;
+}
+  
+.caixaselecao-menu {
+    display: block;
+    position: absolute;
+    min-width: 20rem;
+    border: 1px solid black;
+    border-radius: 0.2rem;
+    z-index: 1;
+    background-color: white;
+}
+
+.caixaselecao-menu-item {
+    cursor: pointer;
+    padding: 0.5rem;
+    font-size: inherit;
+    font-family: inherit;
+}
+
+.caixaselecao-menu-item:hover {
+    background-color: rgba(128, 128, 128, 0.5)
+}

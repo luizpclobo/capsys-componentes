@@ -2,29 +2,31 @@
     display: flex;
     flex: 1;
     flex-direction: row;
+    padding: 0.5rem;
 }
 
 .entrada-campo {
     display: flex;
     flex: 1;
     flex-direction: column;
-    margin: 0.5rem 15rem 0.5rem 15rem;
 }
 
 .entrada-campo-sem-descricao {
-    height: 2rem;
+    height: 2.5rem;
 }
 
 .entrada-campo-com-descricao {
-    height: 3rem;
+    height: 3.5rem;
 }
 
 .entrada-campo-descricao {
-    padding-right: 2px;
+    font-weight: bold;
 }
 
-.entrada-input {
+.entrada {
     border: 1px solid gray;
     border-radius: 0.2rem;
     height: inherit;
+    font-family: inherit;
+    font-size: inherit;
 }

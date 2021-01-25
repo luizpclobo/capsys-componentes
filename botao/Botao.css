@@ -2,16 +2,51 @@
     display: flex;
     flex: 1;
     flex-direction: row;
-}
-
-.botao-campo {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    margin: 0.5rem 15rem 0.5rem 15rem;
-    height: 2rem;
-}
-
-.botao-input {
+    padding: 0.5rem;
     height: inherit;
+    font-size: inherit;
+    font-family: inherit;
+}
+
+.botao {
+    flex: 1;
+    text-align: center;
+    height: 2.5rem;
+    border: 1px solid gray;
+    border-radius: 0.2rem;
+    color: white;
+    font-weight: bold;
+}
+
+.botao:hover {
+    cursor: pointer;
+    border: 1px solid black;
+}
+
+.botao-salvar {
+    background-color: green;
+}
+
+.botao-salvar:active {
+    background-color: rgba(0, 128, 0, 0.8);
+} 
+
+.botao-excluir {
+    background-color: red;
+}
+
+.botao-excluir:active {
+    background-color: rgba(255, 0, 0, 0.8);
+} 
+
+.botao-continuar {
+    background-color: blue;
+}
+
+.botao-continuar:active {
+    background-color: rgba(0, 0, 255, 0.8);
+} 
+
+.botao-descricao {
+    text-align: center;
 }

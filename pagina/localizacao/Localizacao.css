@@ -1,0 +1,29 @@
+.localizacao {
+    display: flex;
+    flex: 1;
+    background-color: #888787;
+    color: white;
+    font-size: large;
+    padding: 0 2rem;
+}
+
+.localizacao-local {
+    flex-direction: column;
+    color: white;
+    text-decoration: none;
+    padding: 0.2rem 0;
+}
+
+.localizacao-local:hover {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.localizacao-descricao {
+    align-self: center;
+    cursor: pointer;
+}
+
+.localizacao-separador {
+    align-self: center;
+    padding: 0.3rem 0.5rem 0 0.5rem;
+}
