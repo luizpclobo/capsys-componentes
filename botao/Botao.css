@@ -10,21 +10,22 @@
 
 .botao {
     flex: 1;
-    text-align: center;
     height: 2.5rem;
     border: 1px solid gray;
     border-radius: 0.2rem;
     color: white;
     font-weight: bold;
+    border: 1px solid black;
 }
 
 .botao:hover {
     cursor: pointer;
-    border: 1px solid black;
+    color: black;
+	background-color: #F7CA18;
 }
 
 .botao-salvar {
-    background-color: green;
+    background-color: #237A2B;
 }
 
 .botao-salvar:active {
@@ -49,4 +50,5 @@
 
 .botao-descricao {
     text-align: center;
+    margin: -4px;
 }

@@ -12,19 +12,23 @@ export default class Cadastro extends React.Component {
         },
         localizar: true,
         localizadoPorId: false,
+        idGeradoAutomaticamente: false,
     }
     
     rgn = null
     objetoVazio = {}
 
-    constructor(props, rgn, objeto) {
+    constructor(props, rgn) {
         super(props)
 
         this.rgn = rgn
-        this.objetoVazio = objeto
     }
 
+    getEstado = () => this.state
+
     getDados = () => this.state.dados
+    
+    setDados = (dados) => this.setState({ dados }) 
 
     getLista = async (rgn) => {
         let itens = await rgn.localizarTodos()
@@ -52,6 +56,21 @@ export default class Cadastro extends React.Component {
         return lista
     }
 
+    setListaDados = (lista, chave) => {
+        let dadosEvento = this.state.eventoObterDados.dados
+
+        if (!!dadosEvento && !!dadosEvento[chave]) {
+            dadosEvento[chave] = lista
+
+            this.setState({ eventoObterDados: { ...this.state.eventoObterDados, dados: dadosEvento } })
+        }
+    }
+
+    atualizarListaDados = async (rgn, chave) => {
+        let lista = await this.getLista(rgn)
+        this.setListaDados(lista, chave)
+    }
+
 	onChangeId = (id) => {
         let dados = this.objetoVazio
         dados.id = id
@@ -62,11 +81,11 @@ export default class Cadastro extends React.Component {
         let dados = this.state.dados
         dados[campo] = valor
 		this.setState({ dados })	
-	}
+    }
 
 	eventoPesquisar = async (id) => {	
         let idAux = !id ? this.state.dados.id : id
-        let dados = await this.rgn.localizar({ id: idAux })
+        let dados = await this.rgn.localizarPorId({ id: idAux })
         let localizadoPorId = false
 
 		if (!dados) {
@@ -85,16 +104,31 @@ export default class Cadastro extends React.Component {
             }
         }
 
-		this.setState({ dados, localizadoPorId })
+        this.setState({ dados, localizadoPorId })
+        
+        return localizadoPorId
+    }
+
+    eventoLocalizarProximoId = async () => {
+        let dados = await this.rgn.localizarProximoId()
+
+        if (!!dados) {
+            this.setState({ dados: { id: dados.id }, idGeradoAutomaticamente: true })        
+        }
     }
     
-    eventoLocalizar = () => {
+    eventoLocalizar = (localizarProximoId = true) => {
         if (!this.state.localizar) {
             return
         }
 
         this.setState({ localizar: false })
-        this.eventoPesquisar(this.props.id)
+
+        if (!!this.props.id) {
+            this.eventoPesquisar(this.props.id)
+        } else if (!!localizarProximoId) {
+            this.eventoLocalizarProximoId()
+        }
     }
     
     eventoObterDados = async (eventos) => {
@@ -107,9 +141,9 @@ export default class Cadastro extends React.Component {
         let dadosEventos = {}
 
         for (let indice = 0; indice < eventos.length; indice++) {
-            const evento = eventos[indice];
+            const evento = eventos[indice]
             
-            let dados = await evento.executar()
+            let dados = await this.getLista(evento.rgn)
 
             dadosEventos[evento.chave] = dados
         }
@@ -118,11 +152,27 @@ export default class Cadastro extends React.Component {
     }
 
 	eventoSalvar = async () => {
-        await this.rgn.salvar(this.state.dados)
+        return await this.rgn.salvar(this.state.dados)
     }
 
     eventoAposSalvar = () => {
+    }
+
+	eventoExcluir = async () => {
+        await this.rgn.deletar(this.state.dados)
+    }
+
+    eventoAposExcluir = () => {
         this.setState({ dados: this.objetoVazio })
+    }
+
+    getEventos = () => {
+        return {
+            eventoSalvar: this.eventoSalvar,
+            eventoAposSalvar: this.eventoAposSalvar,
+            eventoExcluir: this.eventoExcluir,
+            eventoAposExcluir: this.eventoAposExcluir,
+        }
     }
 
 }

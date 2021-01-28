@@ -24,13 +24,13 @@ export default class Botao extends React.Component {
 
     render() {
         return (
-            <div
-                className={ 'botao-base' }
-                onClick={ this.props.onClick }
-            >
-                <div className={ 'botao ' + this.getClassName() } >
+            <div className={ 'botao-base' }>
+                <div
+                    className={ 'botao ' + this.getClassName() }
+                    onClick={ this.props.onClick }
+                >
                     <div className={ 'botao-descricao' } >
-                        { this.getDescricao() } 
+                        <p>{ this.getDescricao() }</p>
                     </div>
                 </div>
             </div>

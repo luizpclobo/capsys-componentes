@@ -8,10 +8,15 @@
     flex: 1;
     text-align: center;
     padding: 0;
+    margin: 0;
 }
 
 .menu-item {
     list-style: none;
+}
+
+.menu-item:hover {
+    background-color:#436145;
 }
 
 .menu-link {
@@ -22,10 +27,7 @@
     color: white;
     text-decoration: none;
     align-items: center;
-}
-
-.menu-link:hover {
-    color: rgba(255, 255, 255, 0.7);
+    padding: 0.5rem;
 }
 
 .menu-link-icone {
@@ -34,5 +36,6 @@
 
 .menu-link-descricao {
     cursor: pointer;
+    font-weight: bold;
     padding-top: 5px;
 }

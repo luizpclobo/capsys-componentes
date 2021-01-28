@@ -1,8 +1,8 @@
 .cabecalho {
     display: flex;
     flex: 1;
-    background-color: black;
-    padding: 0 2rem;
+    background-color: #537956;
+    padding: 0 1rem;
 }
 
 .cabecalho-logo {

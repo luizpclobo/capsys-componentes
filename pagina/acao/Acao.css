@@ -1,0 +1,28 @@
+.acao {
+    display: flex;
+    flex: 1;
+    background-color: #CBED98;
+    justify-content: flex-end;
+}
+
+.acao-item {
+    margin: 5px 5px -3px 10px;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+.acao-item-adicionar {
+    color: #2FB80D;
+}
+
+.acao-item-adicionar:hover {
+    color: rgb(47, 184, 13, 0.8);
+}
+
+.acao-item-atualizar {
+    color: #1767b8;
+}
+
+.acao-item-atualizar:hover {
+    color: rgb(23, 103, 184, 0.8);
+}

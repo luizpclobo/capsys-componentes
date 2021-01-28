@@ -23,10 +23,12 @@ export default class Localizacao extends React.Component {
         let quantidade = !!listaLocal ? listaLocal.length : 0 
 
         if (quantidade > 0) {
+            let localAnterior = ''
+
             for (var indice = 0; indice < quantidade; indice++) {
                 listaAux.push(
                     <>
-                        <Link className='localizacao-local' to={ '/' +  listaLocal[indice] }>
+                        <Link className='localizacao-local' to={ localAnterior + '/' +  listaLocal[indice] }>
                             <label className='localizacao-descricao'>{ listaDescricao[indice] }</label>
                         </Link>
                         {
@@ -38,6 +40,8 @@ export default class Localizacao extends React.Component {
                         }
                     </>
                 )
+
+                localAnterior = localAnterior + '/' + listaLocal[indice]
             }
         }
 
