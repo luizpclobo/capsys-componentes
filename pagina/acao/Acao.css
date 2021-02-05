@@ -3,15 +3,19 @@
     flex: 1;
     background-color: #CBED98;
     justify-content: flex-end;
+    border: 1px solid gray;
+    border-radius: 0.2rem;
 }
 
 .acao-item {
-    margin: 5px 5px -3px 10px;
+    margin: 0.5rem;
+    display: flex;
     font-size: 40px;
     cursor: pointer;
 }
 
 .acao-item-adicionar {
+    display: flex;
     color: #2FB80D;
 }
 
@@ -20,6 +24,7 @@
 }
 
 .acao-item-atualizar {
+    display: flex;
     color: #1767b8;
 }
 

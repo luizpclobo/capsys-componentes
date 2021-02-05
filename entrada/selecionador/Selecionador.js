@@ -1,24 +1,26 @@
 import React from 'react'
 
-import './CaixaSelecao.css'
+import { AiFillCloseCircle } from '@react-icons/all-files/ai/AiFillCloseCircle'
+
+import './Selecionador.css'
 
 const itemVazio = { id: 0, descricao: 'NADA SELECIONADO' }
 
-export default class CaixaSelecao extends React.Component {
+export default class Selecionador extends React.Component {
 
     state = {
-        mostrarLista: false,
+        aberto: false,
         lista: [],
         item: itemVazio,
     }
 
     montarLista = () => {
         let lista = this.props.itens
-        let listaAux = [<div className='caixaselecao-menu-item' onClick={ () => this.onClickItem(itemVazio) }>{ itemVazio.id + ' - ' + itemVazio.descricao }</div>]
+        let listaAux = [<div className={ 'selecionador-menu-item ' + (this.state.item.id === itemVazio.id ? 'selecionador-menu-item-selecionado' : '') } onClick={ () => this.onClickItem(itemVazio) }>{ itemVazio.id + ' - ' + itemVazio.descricao }</div>]
 
         if (!!lista) {
             for (let indice = 0; indice < lista.length; indice++) {
-                listaAux.push(<div className='caixaselecao-menu-item' onClick={ () => this.onClickItem(lista[indice]) }>{ lista[indice].id + ' - ' + lista[indice].descricao }</div>)
+                listaAux.push(<div className={ 'selecionador-menu-item ' + (this.state.item.id === lista[indice].id ? 'selecionador-menu-item-selecionado' : '') } onClick={ () => this.onClickItem(lista[indice]) }>{ lista[indice].id + ' - ' + lista[indice].descricao }</div>)
             }
         }
 
@@ -68,13 +70,11 @@ export default class CaixaSelecao extends React.Component {
     }
 
     onClickItem = (item) => {
-        this.setState({ mostrarLista: false })
+        this.setState({ aberto: false })
         this.onChangeValor(item)
     }
 
     onBlur = (evento) => {
-        // this.setState({ mostrarLista: false })
-
         if (!!this.props.onBlur) {
             this.props.onBlur(evento)
         }
@@ -84,18 +84,22 @@ export default class CaixaSelecao extends React.Component {
         evento.target.value = evento.target.value.toUpperCase()
     }
 
+    onClose = () => {
+        this.setState({ aberto: false })
+    }
+
     render() {
         this.onChangeValor()
 
         return (            
-            <div className='caixaselecao-base'>
-                <div className={ 'caixaselecao-campo ' + (!!this.state.item.id ? 'caixaselecao-campo-com-descricao' : 'caixaselecao-campo-sem-descricao') }>
+            <div className='selecionador-base'>
+                <div className={ 'selecionador-campo ' + (!!this.state.item.id ? 'selecionador-campo-com-descricao' : 'selecionador-campo-sem-descricao') }>
                     {
                         !!this.state.item.id  &&
-                        <label className='caixaselecao-campo-descricao'>{ this.props.descricao }</label>
+                        <label className='selecionador-campo-descricao'>{ this.props.descricao }</label>
                     }
                     <input
-                        className='caixaselecao'
+                        className='selecionador'
                         autofocus={ this.props.focoInicial }
                         readOnly={ true }
                         placeholder={ !this.state.item.id && this.props.descricao }
@@ -103,20 +107,30 @@ export default class CaixaSelecao extends React.Component {
                         onBlur={ this.onBlur }
                         onInput={ this.onInput }
                         onClick={ () => { 
-                            let mostrarLista = !this.state.mostrarLista
+                            let aberto = !this.state.aberto
 
-                            if (!!mostrarLista) {
+                            if (!!aberto) {
                                 this.montarLista()
                             }
 
-                            this.setState({ mostrarLista })
+                            this.setState({ aberto })
                         }}
                     />
                     {
-                        !!this.state.mostrarLista &&
-                        <div className='caixaselecao-menu-base'>
-                            <div className='caixaselecao-menu'>
-                                { this.state.lista }
+                        !!this.state.aberto &&
+                        <div className='selecionador-menu-fundo'>
+                            <div className='selecionador-menu' >
+                                <div className='selecionador-menu-cabecalho'>
+                                    <div className='selecionador-menu-cabecalho-descricao-base'>
+                                        <label>SELECIONE <label className='selecionador-menu-cabecalho-descricao'>{ this.props.descricao.toUpperCase() }</label></label>
+                                    </div>
+                                    <div><AiFillCloseCircle className='selecionador-menu-cabecalho-fechar' onClick={ this.onClose }/></div>
+                                </div>
+                                <div className='selecionador-menu-lista-base'>
+                                    <div className='selecionador-menu-lista'>
+                                        { this.state.lista }
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     }

@@ -11,6 +11,7 @@ export default class Botao extends React.Component {
             case BotaoTipo.SALVAR: return 'botao-salvar'
             case BotaoTipo.EXCLUIR: return 'botao-excluir'
             case BotaoTipo.CONTINUAR: return 'botao-continuar'
+            default: return ''
         }
     }
 
@@ -19,6 +20,7 @@ export default class Botao extends React.Component {
             case BotaoTipo.SALVAR: return 'SALVAR'
             case BotaoTipo.EXCLUIR: return 'EXCLUIR'
             case BotaoTipo.CONTINUAR: return 'CONTINUAR'
+            default: return ''
         }
     }
 

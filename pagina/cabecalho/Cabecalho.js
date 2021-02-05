@@ -1,14 +1,22 @@
 import React from 'react'
 
 import Menu from '../../../navegacao/menu'
+import Localizacao from '../localizacao'
 
 import './Cabecalho.css'
 
-const Cabecalho = () => (
-    <header className='cabecalho'>
-        <Menu/>
-        <div className='cabecalho-logo'></div>
-    </header>
-)
+export default class Cabecalho extends React.Component {
 
-export default Cabecalho
+    render() {
+        return (
+            <header className='cabecalho'>
+                <div className='cabecalho-menu'>
+                    <Menu/>
+                    <div className='cabecalho-menu-logo'></div>
+                </div>
+                <Localizacao { ...this.props.localizacao }/>
+            </header>
+        )
+    }
+
+}

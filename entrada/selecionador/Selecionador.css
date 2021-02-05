@@ -1,0 +1,118 @@
+.selecionador-base {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    padding: 0.5rem;
+}
+
+.selecionador-campo {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.selecionador-campo-sem-descricao {
+    height: 2.5rem;
+}
+
+.selecionador-campo-com-descricao {
+    height: 3.5rem;
+}
+
+.selecionador-campo-descricao {
+    font-weight: bold;
+}
+
+.selecionador {
+    border: 1px solid gray;
+    border-radius: 0.2rem;
+    height: inherit;
+    font-size: inherit;
+    font-family: inherit;
+}
+
+.selecionador-item {
+    color: black;
+    margin: 10px 0;
+}
+
+.selecionador-menu-fundo {
+    display: block;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(83, 121, 86, 0.4);
+}
+
+.selecionador-menu {
+    background-color: white;
+    margin: 9rem auto auto auto;
+    height: 70%;
+    border-radius: 0.2rem;
+    max-width: 600px;
+}
+
+.selecionador-menu-cabecalho {
+    display: flex;
+    padding: 1rem;
+    background-color: #537956;
+    color: white;
+    border: 1px solid gray;
+    border-radius: 0.2rem;
+    margin-bottom: 1rem;
+    align-items: center;
+}
+
+.selecionador-menu-cabecalho-descricao-base {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+}
+
+.selecionador-menu-cabecalho-descricao {
+    font-weight: bold;
+    color: black;
+}
+
+.selecionador-menu-cabecalho-fechar {
+    display: flex;
+    font-size: 40px;
+    color: white;
+}
+
+.selecionador-menu-cabecalho-fechar:hover {
+    cursor: pointer;
+    color: #F7CA18;
+} 
+
+.selecionador-menu-lista-base {
+    display: flex;
+    flex-direction: column;
+    height: inherit;
+    padding: 1rem;
+}
+
+.selecionador-menu-lista {
+    overflow: auto;
+}
+
+.selecionador-menu-item {
+    cursor: pointer;
+    padding: 0.5rem;
+    font-size: inherit;
+    font-family: inherit;
+    border-radius: 0.2rem;
+}
+
+.selecionador-menu-item:hover {
+    font-weight: bold;
+    background-color: #CBED98;
+}
+
+.selecionador-menu-item-selecionado {
+    font-weight: bold;
+    color: #1767B8;
+}

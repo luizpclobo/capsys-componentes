@@ -58,12 +58,8 @@ export default class Cadastro extends React.Component {
 
     setListaDados = (lista, chave) => {
         let dadosEvento = this.state.eventoObterDados.dados
-
-        if (!!dadosEvento && !!dadosEvento[chave]) {
-            dadosEvento[chave] = lista
-
-            this.setState({ eventoObterDados: { ...this.state.eventoObterDados, dados: dadosEvento } })
-        }
+        dadosEvento[chave] = lista
+        this.setState({ eventoObterDados: { ...this.state.eventoObterDados, dados: dadosEvento } })
     }
 
     atualizarListaDados = async (rgn, chave) => {

@@ -33,7 +33,9 @@ export default class Notificacao extends React.Component {
                 break
             case NotificacaoTipo.FALHA:
                 NotificationManager.error(mensagem, 'FALHA', timeOut, this.getMensagemTecnica)
-            break
+                break
+            default:
+                return
         }
     }
 

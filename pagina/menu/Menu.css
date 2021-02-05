@@ -13,6 +13,7 @@
 
 .menu-item {
     list-style: none;
+    border-radius: 0.2rem;
 }
 
 .menu-item:hover {
