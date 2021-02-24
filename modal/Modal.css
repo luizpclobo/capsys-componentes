@@ -1,0 +1,57 @@
+.modal-menu-fundo {
+    display: block;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(83, 121, 86, 0.4);
+}
+
+.modal-menu {    
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    margin: 9rem auto auto auto;
+    height: 70%;
+    border-radius: 0.2rem;
+    max-width: 600px;
+}
+
+.modal-menu-cabecalho {
+    display: flex;
+    padding: 1rem;
+    background-color: #537956;
+    color: white;
+    border: 1px solid rgb(83, 121, 86, 0.4);
+    border-radius: 0.2rem;
+    align-items: center;
+}
+
+.modal-menu-cabecalho-titulo-base {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+}
+
+.modal-menu-cabecalho-titulo {
+    font-weight: bold;
+    color: black;
+}
+
+.modal-menu-cabecalho-titulo-destaque {
+    font-weight: bold;
+    color: white;  
+}
+
+.modal-menu-cabecalho-fechar {
+    display: flex;
+    font-size: 40px;
+    color: white;
+}
+
+.modal-menu-cabecalho-fechar:hover {
+    cursor: pointer;
+    color: #F7CA18;
+} 

@@ -24,7 +24,7 @@
 }
 
 .selecionador {
-    border: 1px solid gray;
+    border: 1px solid rgb(83, 121, 86, 0.4);
     border-radius: 0.2rem;
     height: inherit;
     font-size: inherit;
@@ -60,7 +60,7 @@
     padding: 1rem;
     background-color: #537956;
     color: white;
-    border: 1px solid gray;
+    border: 1px solid rgb(83, 121, 86, 0.4);
     border-radius: 0.2rem;
     margin-bottom: 1rem;
     align-items: center;

@@ -1,0 +1,53 @@
+.migracao-menu-texto-base {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;    
+}
+
+.migracao-menu-texto {
+    text-align: center;
+    color: black;
+    padding: 1rem;
+}
+
+.migracao-menu-lista-separador {
+    margin: 0 1rem 1rem 1rem;
+    height: 1px;   
+    background-color: rgb(83, 121, 86, 0.4);
+}
+
+.migracao-menu-lista-base {
+    display: flex;
+    flex-direction: column;
+    height: 50%;
+    padding: 0 1rem;
+    border-radius: 0.2rem;
+}
+
+.migracao-menu-lista {
+    overflow: auto;
+}
+
+.migracao-menu-item {
+    cursor: pointer;
+    padding: 0.5rem;
+    font-size: inherit;
+    font-family: inherit;
+    border-radius: 0.2rem;
+}
+
+.migracao-menu-item:hover {
+    background-color: #CBED98;
+    font-weight: bold;
+}
+
+.migracao-menu-item-vazio {
+    font-weight: bold;
+    color: #1767B8;
+}
+
+.migracao-menu-item-selecionado {
+    font-weight: bold;
+    color: #1767B8;
+}

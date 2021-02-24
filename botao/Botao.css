@@ -1,3 +1,8 @@
+.botao-recipiente {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .botao-base {
     display: flex;
     flex: 1;
@@ -11,7 +16,7 @@
 .botao {
     flex: 1;
     height: 2.5rem;
-    border: 1px solid gray;
+    border: 1px solid rgb(83, 121, 86, 0.4);
     border-radius: 0.2rem;
     color: white;
     font-weight: bold;
@@ -24,19 +29,29 @@
 	background-color: #F7CA18;
 }
 
-.botao-salvar {
+.botao-desabilitado {
+    cursor: pointer;
+    color: black;
+    background-color: rgb(83, 121, 86, 0.4);    
+}
+
+.botao-desabilitado:hover {
+    background-color: rgb(83, 121, 86, 0.4); 
+}
+
+.botao-sim {
     background-color: #237A2B;
 }
 
-.botao-salvar:active {
+.botao-sim:active {
     background-color: rgba(0, 128, 0, 0.8);
 } 
 
-.botao-excluir {
+.botao-nao {
     background-color: red;
 }
 
-.botao-excluir:active {
+.botao-nao:active {
     background-color: rgba(255, 0, 0, 0.8);
 } 
 
