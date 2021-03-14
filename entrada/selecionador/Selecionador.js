@@ -12,19 +12,34 @@ export default class Selecionador extends React.Component {
         aberto: false,
         lista: [],
         item: itemVazio,
+        valido: false,
     }
 
     montarLista = () => {
         let lista = this.props.itens
-        let listaAux = [<div className={ 'selecionador-menu-item ' + (this.state.item.id === itemVazio.id ? 'selecionador-menu-item-selecionado' : '') } onClick={ () => this.onClickItem(itemVazio) }>{ itemVazio.id + ' - ' + itemVazio.descricao }</div>]
+        let listaAux = [<div className={ 'selecionador-menu-item ' + (this.state.item.id === itemVazio.id ? 'selecionador-menu-item-selecionado' : '') } onClick={ () => this.eventoCliqueItem(itemVazio) }>{ itemVazio.id + ' - ' + itemVazio.descricao }</div>]
 
         if (!!lista) {
             for (let indice = 0; indice < lista.length; indice++) {
-                listaAux.push(<div className={ 'selecionador-menu-item ' + (this.state.item.id === lista[indice].id ? 'selecionador-menu-item-selecionado' : '') } onClick={ () => this.onClickItem(lista[indice]) }>{ lista[indice].id + ' - ' + lista[indice].descricao }</div>)
+                listaAux.push(<div className={ 'selecionador-menu-item ' + (this.state.item.id === lista[indice].id ? 'selecionador-menu-item-selecionado' : '') } onClick={ () => this.eventoCliqueItem(lista[indice]) }>{ lista[indice].id + ' - ' + lista[indice].descricao }</div>)
             }
         }
 
         this.setState({ lista: listaAux })
+    }
+
+    getClassNameCampo = () => {
+        return (
+            'selecionador-campo ' +
+            (!!this.state.item.id ? 'selecionador-campo-com-descricao' : 'selecionador-campo-sem-descricao')
+        )
+    }
+
+    getClassNameSelecionador = () => {
+        return (
+            'selecionador ' +
+            (!this.state.valido ? 'selecionador-nao-valido' : '')
+        )        
     }
 
     getItem = (id) => {
@@ -51,7 +66,7 @@ export default class Selecionador extends React.Component {
         return item
     }
     
-    onChangeValor = (item) => {
+    eventoAlteracaoValor = (item) => {
         let itemTemp = item
 
         if (!itemTemp) {
@@ -63,49 +78,60 @@ export default class Selecionador extends React.Component {
         if (itemAux.id !== this.state.item.id) {
             this.setState({ item: itemAux })
 
-            if (!!this.props.onChange) {
-                this.props.onChange(itemAux)
+            if (!!this.props.eventoAlteracao) {
+                this.props.eventoAlteracao(itemAux)
             }
         }
     }
 
-    onClickItem = (item) => {
+    eventoCliqueItem = (item) => {
         this.setState({ aberto: false })
-        this.onChangeValor(item)
+        this.eventoAlteracaoValor(item)
     }
 
-    onBlur = (evento) => {
-        if (!!this.props.onBlur) {
-            this.props.onBlur(evento)
+    eventoSair = (evento) => {
+        if (!!this.props.eventoSair) {
+            this.props.eventoSair(evento)
         }
     }
 
-    onInput = (evento) => {
+    eventoEntrada = (evento) => {
         evento.target.value = evento.target.value.toUpperCase()
     }
 
-    onClose = () => {
+    eventoFechar = () => {
         this.setState({ aberto: false })
     }
 
+    eventoValidar = () => {
+        if (!!this.props.eventoValidar) {
+            let validoAux = !!this.props.eventoValidar(this.state.item.id)
+
+            if (validoAux !== this.state.valido) {
+                this.setState({ valido: validoAux })
+            }
+        }
+    }
+
     render() {
-        this.onChangeValor()
+        this.eventoAlteracaoValor()
+        this.eventoValidar()
 
         return (            
             <div className='selecionador-base'>
-                <div className={ 'selecionador-campo ' + (!!this.state.item.id ? 'selecionador-campo-com-descricao' : 'selecionador-campo-sem-descricao') }>
+                <div className={ this.getClassNameCampo() }>
                     {
                         !!this.state.item.id  &&
                         <label className='selecionador-campo-descricao'>{ this.props.descricao }</label>
                     }
                     <input
-                        className='selecionador'
+                        className={ this.getClassNameSelecionador() }
                         autofocus={ this.props.focoInicial }
                         readOnly={ true }
                         placeholder={ !this.state.item.id && this.props.descricao }
                         value={ !!this.state.item.id ? this.state.item.descricao : '' }
-                        onBlur={ this.onBlur }
-                        onInput={ this.onInput }
+                        eventoSair={ this.eventoSair }
+                        eventoEntrada={ this.eventoEntrada }
                         onClick={ () => { 
                             let aberto = !this.state.aberto
 
@@ -124,7 +150,7 @@ export default class Selecionador extends React.Component {
                                     <div className='selecionador-menu-cabecalho-descricao-base'>
                                         <label>SELECIONE <label className='selecionador-menu-cabecalho-descricao'>{ this.props.descricao.toUpperCase() }</label></label>
                                     </div>
-                                    <div><AiFillCloseCircle className='selecionador-menu-cabecalho-fechar' onClick={ this.onClose }/></div>
+                                    <div><AiFillCloseCircle className='selecionador-menu-cabecalho-fechar' onClick={ this.eventoFechar }/></div>
                                 </div>
                                 <div className='selecionador-menu-lista-base'>
                                     <div className='selecionador-menu-lista'>

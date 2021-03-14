@@ -30,3 +30,7 @@
     font-family: inherit;
     font-size: inherit;
 }
+
+.entrada-nao-valida {
+    border: 2px solid red;
+}

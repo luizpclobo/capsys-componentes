@@ -116,3 +116,7 @@
     font-weight: bold;
     color: #1767B8;
 }
+
+.selecionador-nao-valido {
+    border: 2px solid red;
+}

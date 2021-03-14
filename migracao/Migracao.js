@@ -87,6 +87,7 @@ export default class Migracao extends React.Component {
                         onClick={ this.props.eventos.fechar }
                     />
                     <Botao
+                        ativo={ this.state.item.id > 0 }
                         tipo={ BotaoTipo.SIM }
                         onClick={ this.eventoSim }
                     />

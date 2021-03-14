@@ -23,7 +23,7 @@ export default class PaginaCadastro extends React.Component {
                 <Opcao 
                     botoes={{ 
                         excluir: { ativo: !!controlador.getEstado().localizadoPorId },
-                        salvar: { ativo: true } 
+                        salvar: { ativo: !!controlador.eventoValidarCampos() } 
                     }} 
                     eventos={ { ...controlador.getEventos(), ...this.props.eventos } }
                 />

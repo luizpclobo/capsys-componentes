@@ -9,6 +9,7 @@ export default class ControladorCadastro extends React.Component {
 
     state = {
         dados: {},
+        campos: {},
         eventoInicial: { 
             executado: true
         },
@@ -51,12 +52,13 @@ export default class ControladorCadastro extends React.Component {
     getDados = () => this.state.dados
 
     getLista = async (rgn) => {
-        let itens = await rgn.localizarTodos()
+        let resposta = await rgn.localizarTodos()
+        let dados = resposta.dados
         let lista = []
 
-        if (!!itens) {
-            for (let indice = 0; indice < itens.length; indice++) {
-                const item = itens[indice]
+        if (!!resposta.situacao.sucesso) {
+            for (let indice = 0; indice < dados.length; indice++) {
+                const item = dados[indice]
                 
                 lista.push({ id: item.id, descricao: item.descricao })
             }
@@ -99,7 +101,13 @@ export default class ControladorCadastro extends React.Component {
             ...this.state.mensagem,
             eventos: {
                 ...this.state.mensagem.eventos,
-                fechar: () => this.setMensagem({ exibir: false })
+                fechar: () => {
+                    if (this.state.mensagem.eventos.fechar) {
+                        this.state.mensagem.eventos.fechar()
+                    }
+
+                    this.setMensagem({ exibir: false })
+                }
             }
         }
     }
@@ -118,29 +126,46 @@ export default class ControladorCadastro extends React.Component {
         }
     }
 
+    setPerguntarDeletar = (item, descricao) => {
+        this.setMensagem({ 
+            exibir: true,
+            titulo: 'ATENÇÃO',  
+            texto: <label>DESEJA EXCLUIR { descricao } <b>{ item.id + (!!item.descricao ? ' - ' + item.descricao : '') }</b>?</label>, 
+            eventos: {
+                sim: () => this.eventoDeletar(),
+            }
+        })        
+    }
+
     atualizarListaDados = async (rgn, chave) => {
         let lista = await this.getLista(rgn)
         this.setListaDados(lista, chave)
     }
 
-	onChangeId = (id) => {
+	eventoAlteracaoId = (id) => {
         let dados = this.objetoVazio
         dados.id = id
 		this.setState({ dados, localizadoPorId: false })	
 	}
 
-	onChange = (campo, valor) => {
+	eventoAlteracao = (campo, valor) => {
         let dados = this.state.dados
         dados[campo] = valor
 		this.setState({ dados })	
     }
 
 	eventoPesquisar = async (id) => {	
-
         let idAux = !id ? this.state.dados.id : id
-        let dados = await this.rgn.localizarPorId({ id: idAux })
 
-        let localizadoPorId = !!dados
+        if (!idAux) {
+            return false
+        }
+
+        let resposta = await this.rgn.localizarPorId({ id: idAux })
+
+        let dados = resposta.dados
+        let localizadoPorId = !!resposta.situacao.sucesso
+        let localizado = localizadoPorId
 
 		if (!localizadoPorId) {
             dados = { id: idAux }
@@ -148,7 +173,7 @@ export default class ControladorCadastro extends React.Component {
             if (!!dados.dataexclusao) {
                 localizadoPorId = false
 
-                let texto = <label>REGISTRO <b>{ dados.id + ' - ' + dados.descricao }</b> EXCLUÍDO DIA <b>{ DataHoraUtil.dataFormatada(dados.dataexclusao) }</b>.</label>
+                let texto = <label>REGISTRO <b>{ dados.id + (!!dados.descricao ? ' - ' + dados.descricao : '') }</b> EXCLUÍDO DIA <b>{ DataHoraUtil.dataFormatada(dados.dataexclusao) }</b>.</label>
                 let pergunta = <label>DESEJA REINCLUÍ-LO?</label>
                 let observacao = <label>APÓS REINCLUIR DEVERÁ SER SALVO.</label>
 
@@ -159,21 +184,26 @@ export default class ControladorCadastro extends React.Component {
                     pergunta, 
                     observacao,
                     eventos: {
-                        nao: () => this.eventoLocalizarProximoId(),
                         sim: () => this.setMensagem({ exibir: false }),
+                        fechar: () => {
+                            this.eventoLocalizarProximoId()
+                            this.setMensagem({ exibir: false })
+                        },
                     }
                 })
             }
         }
 
         this.setState({ dados, localizadoPorId })
+
+        return localizado
     }
 
     eventoLocalizarProximoId = async () => {
-        let dados = await this.rgn.localizarProximoId()
+        let resposta = await this.rgn.localizarProximoId()
 
-        if (!!dados) {
-            this.setState({ dados: { id: dados.id }, idGeradoAutomaticamente: true })        
+        if (!!resposta.situacao.sucesso) {
+            this.setState({ dados: { ...this.objetoVazio, id: resposta.dados.id }, idGeradoAutomaticamente: true })        
         }
     }
     
@@ -222,35 +252,35 @@ export default class ControladorCadastro extends React.Component {
     }
 
 	eventoSalvar = async () => {
-        let dados = await this.rgn.salvar(this.state.dados)
+        let resposta = await this.rgn.salvar(this.state.dados)
 
         let notificacaoTipo = NotificacaoTipo.SUCESSO
         let mensagem = 'SALVO COM SUCESSO.'
 
-        if (!dados) {
+        if (!resposta.situacao.sucesso ) {
             notificacaoTipo = NotificacaoTipo.FALHA
             mensagem = 'FALHA AO SALVAR.'
         }
 
         Notificacao.criar(notificacaoTipo, mensagem)
 
-        return dados
+        return !!resposta.situacao.sucesso 
     }
 
 	eventoExcluir = async () => {
-        let dados = await this.rgn.deletar(this.state.dados)
+        let resposta = await this.rgn.deletar(this.state.dados)
 
         let notificacaoTipo = NotificacaoTipo.SUCESSO
         let mensagem = 'EXCLUÍDO COM SUCESSO.'
 
-        if (!dados) {
+        if (!resposta.situacao.sucesso) {
             notificacaoTipo = NotificacaoTipo.FALHA
             mensagem = 'FALHA AO EXCLUIR.'
         }
 
         Notificacao.criar(notificacaoTipo, mensagem)
 
-        return dados        
+        return !!resposta.situacao.sucesso        
     }
 
     eventoAposExcluir = async () => {
@@ -259,7 +289,7 @@ export default class ControladorCadastro extends React.Component {
     }
 
     eventoMigrar = async (titulo, item, eventoSim) => {
-        let dados = await this.rgn.localizarTodos() 
+        let resposta = await this.rgn.localizarTodos() 
             
         this.setMensagem({ exibir: false }) 
 
@@ -267,7 +297,7 @@ export default class ControladorCadastro extends React.Component {
             exibir: true,
             titulo, 
             item,
-            lista: dados,
+            lista: resposta.dados,
             eventos: {
                 sim: (novoItem) => eventoSim(item, novoItem),
             }
@@ -275,7 +305,6 @@ export default class ControladorCadastro extends React.Component {
     }
 
     eventoDeletar = async () => {
-
         let dados = await this.eventoExcluir()
 
         if (!!dados) {
@@ -283,6 +312,31 @@ export default class ControladorCadastro extends React.Component {
         }
 
         this.setMensagem({ exibir: false })
+    }	
+    
+    eventoValidar = (campo, valido) => {
+        let campos = this.state.campos
+
+        if (campos[campo] !== valido) {
+            campos[campo] = valido
+            this.setState({ campos })
+        }
+
+        return valido	
+    }
+
+    eventoValidarCampos = () => {
+        let campos = this.state.campos
+        let validos = JSON.stringify(campos) !== '{}'
+
+        for (const campo in campos) {
+            if (Object.hasOwnProperty.call(campos, campo)) {
+                const valido = campos[campo]
+                validos = validos && valido
+            }
+        }
+
+        return validos
     }
 
 }

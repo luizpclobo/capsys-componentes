@@ -12,56 +12,82 @@ export default class Entrada extends React.Component {
 
     state = {
         exibirLabel: false,
+        valida: false,
     }
 
-    onChangeValor = (exibirLabel) => {
-        let exibirLabelAux = !!this.props.valor || !!exibirLabel
+    getClassNameCampo = () => {
+        return (
+            'entrada-campo ' +
+            (!!this.state.exibirLabel ? 'entrada-campo-com-descricao' : 'entrada-campo-sem-descricao')
+        )
+    }
+
+    getClassNameEntrada = () => {
+        return (
+            'entrada ' +
+            (!this.state.valida ? 'entrada-nao-valida' : '')
+        )        
+    }
+
+    eventoAlteracaoValor = () => {
+        let exibirLabelAux = !!this.props.valor
 
         if (exibirLabelAux !== this.state.exibirLabel) {
             this.setState({ exibirLabel: exibirLabelAux })
         }
     }
 
-    onChange = (evento) => {
-        this.onChangeValor()
+    eventoAlteracao = (evento) => {
+        this.eventoAlteracaoValor()
 
-        if (!!this.props.onChange) {
-            this.props.onChange(evento)
+        if (!!this.props.eventoAlteracao) {
+            this.props.eventoAlteracao(evento.target.value)
         }
     }
 
-    onBlur = () => {
-        this.onChangeValor()
+    eventoSair = () => {
+        this.eventoAlteracaoValor()
 
-        if (!!this.props.onBlur) {
-            this.props.onBlur()
+        if (!!this.props.eventoSair) {
+            this.props.eventoSair()
         }
     }
 
-    onInput = (evento) => {
+    eventoEntrada = (evento) => {
         evento.target.value = evento.target.value.toUpperCase()
     }
 
+    eventoValidar = () => {
+        if (!!this.props.eventoValidar) {
+            let validaAux = !!this.props.eventoValidar(this.props.valor)
+
+            if (validaAux !== this.state.valida) {
+                this.setState({ valida: validaAux })
+            }
+        }
+    }
+
     render() {
-        this.onChangeValor()
+        this.eventoAlteracaoValor()
+        this.eventoValidar()
 
         return (
             <div className='entrada-base'>
-                <div className={ 'entrada-campo ' + (!!this.state.exibirLabel ? 'entrada-campo-com-descricao' : 'entrada-campo-sem-descricao') }>
+                <div className={ this.getClassNameCampo() }>
                     {
                         !!this.state.exibirLabel &&
                         <label className='entrada-campo-descricao'>{ this.props.descricao }</label>
                     }
                     <input
-                        className='entrada'
+                        className={ this.getClassNameEntrada() }
                         type={ this.props.tipo }
                         autofocus={ this.props.focoInicial }
                         placeholder={ !this.state.exibirLabel && this.props.descricao }
                         value={ this.props.valor }
                         disabled={ !this.props.habilitado }
-                        onChange={ this.onChange }
-                        onBlur={ this.onBlur }
-                        onInput={ this.onInput }
+                        onChange={ this.eventoAlteracao }
+                        onBlur={ this.eventoSair }
+                        onInput={ this.eventoEntrada }
                     />
                 </div>
             </div>   

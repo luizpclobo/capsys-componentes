@@ -16,27 +16,6 @@ export default class PaginaLista extends React.Component {
         carregandoGrid: true,
     }
 
-    excluir = async (id) => {
-        let deletar = window.confirm(this.props.getMensagemExclusao(id))
-        
-        if (!!deletar) {
-            await this.props.rgn.deletar({ id })
-            
-            let linhas = this.state.linhas
-            let linhasAux = []
-
-            for (let indice = 0; indice < linhas.length; indice++) {
-                if (linhas[indice].id === id) {
-                    continue
-                }
-
-                linhasAux.push(linhas[indice])
-            }
-
-            this.setState({ linhas: linhasAux })
-        }
-    }
-
     montarColunas = () => {
         this.setState({ colunas: [] })
 
@@ -72,14 +51,8 @@ export default class PaginaLista extends React.Component {
 
     montarLinhas = async () => {
         this.setState({ linhas: [], carregandoGrid: true })
-        
-        let linhas = await this.props.rgn.localizarDadosGrid()
-
-        if (!linhas) {
-            linhas = []
-        }
-
-        this.setState({ linhas, carregandoGrid: false })
+        let resposta = await this.props.rgn.localizarDadosGrid()
+        this.setState({ linhas: resposta.dados, carregandoGrid: false })
     }
 
     montarGrid = () => {

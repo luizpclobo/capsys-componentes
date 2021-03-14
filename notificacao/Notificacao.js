@@ -10,7 +10,7 @@ export default class Notificacao extends React.Component {
 
     mensagemTecnica = ''
 
-    static criar = (tipo, mensagem, mensagemTecnica = '', timeOut = 3000) => (new Notificacao()).gerar(tipo, mensagem, mensagemTecnica, timeOut)
+    static criar = (tipo, mensagem, mensagemTecnica = '', timeOut = 1000) => (new Notificacao()).gerar(tipo, mensagem, mensagemTecnica, timeOut)
 
     getMensagemTecnica = () => {
         if (!!this.mensagemTecnica) {
