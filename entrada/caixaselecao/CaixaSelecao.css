@@ -24,7 +24,7 @@
 }
 
 .caixaselecao {
-    border: 1px solid gray;
+    border: 1px solid rgb(83, 121, 86, 0.4);
     border-radius: 0.2rem;
     height: inherit;
     font-size: inherit;
