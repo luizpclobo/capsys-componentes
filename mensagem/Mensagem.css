@@ -1,0 +1,61 @@
+.mensagem-menu-texto-base {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;    
+}
+
+.mensagem-menu-texto {
+    text-align: center;
+    color: black;
+    padding: 1rem;
+}
+
+.mensagem-menu-lista-separador {
+    margin: 0 1rem 1rem 1rem;
+    height: 1px;   
+    background-color: rgb(83, 121, 86, 0.4);
+}
+
+.mensagem-menu-lista-base {
+    display: flex;
+    flex-direction: column;
+    height: 35%;
+    padding: 0 1rem;
+    border-radius: 0.2rem;
+}
+
+.mensagem-menu-lista {
+    overflow: auto;
+}
+
+.mensagem-menu-item {
+    cursor: default;
+    padding: 0.5rem;
+    font-size: inherit;
+    font-family: inherit;
+    border-radius: 0.2rem;
+    font-weight: bold;
+}
+
+.mensagem-menu-item:hover {
+    background-color: #CBED98;
+}
+
+.mensagem-menu-item-vazio {
+    font-weight: bold;
+    color: #1767B8;
+}
+
+.mensagem-menu-pergunta {
+    display: flex;
+    flex: 1;
+    font-weight: bold;
+    justify-content: center;
+}
+
+.mensagem-menu-observacao {
+    font-size: 11px;
+    font-weight: bold;
+    color: #1767B8;
+}
