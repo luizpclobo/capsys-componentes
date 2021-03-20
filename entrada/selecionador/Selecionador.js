@@ -45,7 +45,7 @@ export default class Selecionador extends React.Component {
     getItem = (id) => {
         let item = itemVazio
 
-        if (!!id && id > 0) {   
+        if (!!id && id > 0) {
             let lista = this.props.itens
             let encontrou = false
 
